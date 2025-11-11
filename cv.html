@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" type="image/x-icon" href="https://iamcharliex.com/favicon.ico">
+        <title>Charlie X – DevOps & Infrastructure</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+            :root{
+                --accent:#f7931a;
+                --dark:#0a0a0a;
+                --darker:#050505;
+                --card:#0f0f0f;
+                --text:#ffffff;
+                --text-dim:#999999;
+                --text-muted:#666666;
+                --border:rgba(255,255,255,0.08);
+                --border-hover:rgba(255,255,255,0.15);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html,body{
+                background:var(--darker);
+                color:var(--text);
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+                line-height:1.6;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.02) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.015) 0%, transparent 50%);
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .container{
+                max-width:1100px;
+                margin:80px auto;
+                padding:0 40px;
+                position:relative;
+                z-index:1;
+            }
+
+            .divider {
+                height: 1px;
+                background: var(--border);
+                margin: 50px 0;
+            }
+
+
+
+            header{
+                text-align:center;
+                margin-bottom:80px;
+                position:relative;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
+
+                display: inline-block;
+                margin-top: 30px;
+            }
+
+
+            .profile {
+                width: 100px;
+                height: 100px;
+
+                display: inline-block;
+                margin-bottom: 10px;
+
+                border-radius: 200px 200px 200px 200px;
+                -webkit-border-radius: 200px 200px 200px 200px;
+                -moz-border-radius: 200px 200px 200px 200px;
+            }
+
+            h1{
+                font-size:44px;
+                font-weight:500;
+                letter-spacing:-0.5px;
+                margin-bottom:16px;
+                color: var(--text);
+            }
+
+            .subtitle{
+                font-size:18px;
+                color:var(--text-dim);
+                font-weight:400;
+                letter-spacing:0.3px;
+                margin-bottom:30px;
+            }
+
+            .meta-bar {
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                flex-wrap: wrap;
+                font-size: 14px;
+                color: var(--text-muted);
+                margin-top: 30px;
+            }
+
+            .meta-bar a {
+                color: var(--text-dim);
+                text-decoration: none;
+                transition: color 0.2s ease;
+            }
+
+            .meta-bar a:hover {
+                color: var(--text);
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: 1fr 340px;
+                gap: 50px;
+                margin-top: 60px;
+            }
+
+            .card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 32px;
+                transition: border-color 0.2s ease;
+            }
+
+            .card:hover {
+                border-color: var(--border-hover);
+            }
+
+            .card + .card {
+                margin-top: 24px;
+            }
+
+            h2 {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--text-dim);
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                margin-bottom: 24px;
+            }
+
+            .intro {
+                font-size: 18px;
+                line-height: 1.7;
+                color: var(--text-dim);
+                margin-bottom: 20px;
+            }
+
+            .intro strong {
+                color: var(--text);
+                font-weight: 500;
+            }
+
+            .experience, .project {
+                margin-bottom: 32px;
+                padding-bottom: 32px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .experience:last-child, .project:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            .role {
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--text);
+                margin-bottom: 6px;
+            }
+
+            .company {
+                color: var(--text-dim);
+                font-size: 15px;
+                margin-bottom: 4px;
+            }
+
+            .dates {
+                color: var(--text-muted);
+                font-size: 13px;
+                margin-bottom: 16px;
+            }
+
+            ul {
+                list-style: none;
+                margin-top: 12px;
+            }
+
+            li {
+                color: var(--text-dim);
+                margin: 10px 0;
+                padding-left: 16px;
+                position: relative;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            li::before {
+                content: '·';
+                position: absolute;
+                left: 0;
+                color: var(--text-muted);
+                font-weight: 600;
+            }
+
+            .skills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .skill {
+                background: rgba(255,255,255,0.03);
+                border: 1px solid var(--border);
+                padding: 6px 14px;
+                border-radius: 4px;
+                font-size: 12px;
+                color: var(--text-dim);
+                font-weight: 400;
+                transition: all 0.2s ease;
+            }
+
+            .skill:hover {
+                background: rgba(255,255,255,0.05);
+                border-color: var(--border-hover);
+                color: var(--text);
+            }
+
+            .tag {
+                display: inline-block;
+                background: rgba(247,147,26,0.1);
+                color: var(--accent);
+                padding: 4px 10px;
+                border-radius: 3px;
+                font-size: 11px;
+                font-weight: 500;
+                letter-spacing: 0.3px;
+                margin-left: 8px;
+            }
+
+            a.project-link {
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 13px;
+                transition: color 0.2s ease;
+            }
+
+            a.project-link:hover {
+                color: var(--text);
+            }
+
+            footer {
+                text-align: center;
+                margin-top: 100px;
+                padding-top: 50px;
+                border-top: 1px solid var(--border);
+                color: var(--text-muted);
+                font-size: 13px;
+            }
+
+            @media (max-width: 968px) {
+                .grid {
+                    grid-template-columns: 1fr;
+                }
+                h1 {
+                    font-size: 36px;
+                }
+                .container {
+                    padding: 0 20px;
+                    margin: 50px auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <img src="https://res.cloudinary.com/dcqfs6lkg/image/upload/v1762870301/pp-square-small_zelyrv.jpg" alt="Charlie X" class="profile" />
+                <h1>Charlie X</h1>
+                <div class="subtitle">
+                    DevOps · SEO · ₿
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="meta-bar">
+                    <div><a href="mailto:charlie@houseofbitcoin.org">charlie@houseofbitcoin.org</a></div>
+                    <div>London · Remote</div>
+                    <div><a href="https://houseofbitcoin.com" target="_blank" rel="noopener">houseofbitcoin.com</a></div>
+                    <div><a href="https://iamcharliex.com/" target="_blank" rel="noopener">Portfolio</a></div>
+                    <div><a href="https://www.linkedin.com/in/mxx/" target="_blank" rel="noopener">LinkedIn</a></div>
+                    <div><a href="https://github.com/bitcoindevelopment" target="_blank" rel="noopener">GitHub</a></div>
+                    <div><a href="https://x.com/bitcoindevops" target="_blank" rel="noopener">X</a></div>
+                </div>
+            </header>
+
+            <div class="grid">
+                <div class="main-content">
+                    <div class="card">
+                        <h2>Overview</h2>
+                        <p class="intro">
+                            DevOps engineer and SEO specialist with a decade of experience building and scaling web infrastructure. Founder of <strong>House of Bitcoin</strong>, a Bitcoin education platform serving the global community. I work across cloud operations, technical SEO, and full-stack deployment - delivering resilient, performant systems for startups and established brands.
+                        </p>
+                        <p class="intro">
+                            My approach combines technical precision with strategic thinking: whether optimizing organic search for crypto brands, managing multi-cloud infrastructure, or building sovereignty-focused platforms, I prioritize long-term sustainability over short-term hacks.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h2>Experience</h2>
+
+
+                        <div class="experience">
+                            <div class="role">Founder<span class="tag">Bitcoin</span></div>
+                            <div class="company">House of Bitcoin</div>
+                            <div class="dates">Present</div>
+                            <ul>
+                                <li>Built and operate a curated Bitcoin education platform providing sovereignty-focused resources and tooling</li>
+                                <li>Manage full-stack operations: DNS, hosting, content strategy, technical SEO, and security best practices</li>
+                                <li>Active contributor to Bitcoin discourse and community education</li>
+                            </ul>
+                            <br>              
+                            <b><a href="https://iamcharliex.com/blog/bitcoin-strategy" target="_blank" rel="noopener" class="project-link">Bitcoin Strategy →</a></b>
+                        </div>            
+
+
+
+                        <div class="experience">
+                            <div class="role">SEO Executive</div>
+                            <div class="company">Honed Ltd</div>
+                            <div class="dates">2023 — 2025</div>
+                            <ul>
+                                <li>Delivered technical SEO and content strategy for crypto-native brands, including former BlockFi affiliates and Web3 startups</li>
+                                <li>Specialized in keyword research, Google Search Console optimization, and building organic visibility for DeFi content</li>
+                                <li>Technical audits, backlink strategies, and on-page optimization for competitive crypto SERPs</li>
+                            </ul>
+                            <br>
+                            <b><a href="https://iamcharliex.com/blog/search-strategy" target="_blank" rel="noopener" class="project-link">Search Review →</a></b>
+                        </div>            
+
+
+                        <div class="experience">
+                            <div class="role">Director & Dev Ops</div>
+                            <div class="company">Coast Create Ltd</div>
+                            <div class="dates">2023 — 2025</div>
+                            <ul>
+                                <li>Led cloud operations, hosting infrastructure, and CI/CD pipelines for multiple client projects</li>
+                                <li>Managed SSL/DNS architecture, site migrations, and reliability improvements across production environments</li>
+                                <li>Introduced automation tooling and monitoring systems for improved deployment velocity and observability (SEO)</li>
+                            </ul>
+                            <br>
+                            <b><a href="https://iamcharliex.com/blog/wordpress-portfolio" target="_blank" rel="noopener" class="project-link">Wordpress Portfolio →</a></b>
+                        </div>
+
+
+
+                        <div class="experience">
+                            <div class="role">WordPress Developer & SEO</div>
+                            <div class="company">Boomworks S.L</div>
+                            <div class="dates">2022 — 2023</div>
+                            <ul>
+                                <li>Built and maintained WordPress sites, custom themes, and plugins with performance optimization</li>
+                                <li>Technical SEO implementation and site speed improvements</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Select Projects</h2>
+
+                        <div class="project">
+                            <div class="role">House of Bitcoin <span class="tag">Flagship</span></div>
+                            <div class="dates">Bitcoin Organisation</div>
+                            <p style="color:var(--text-dim); margin:12px 0; line-height:1.7; font-size:14px;">
+                                Comprehensive resource hub covering self-custody, privacy tools, node operation, and Bitcoin philosophy. Built on open-source principles with a focus on accessibility and censorship resistance.
+                            </p>
+                            <a href="https://houseofbitcoin.com" target="_blank" rel="noopener" class="project-link">houseofbitcoin.com →</a>
+                        </div>
+
+                        <div class="project">
+                            <div class="role">Overton Index</div>
+                            <div class="dates">AI Analysis & Public Discourse</div>
+                            <p style="color:var(--text-dim); margin:12px 0; line-height:1.7; font-size:14px;">
+                                Intersection of AI analysis and indexation of public intellectual discourse. Tracks adoption narratives and freedom-tech movements.
+                            </p>
+                            <a href="https://overtonindex.com" target="_blank" rel="noopener" class="project-link">overtonindex.com →</a>
+                        </div>
+
+                        <div class="project">
+                            <div class="role">AI Development</div>
+                            <div class="dates">AI Chatbots, leveraging artificial intelligence (API).</div>
+                            <p style="color:var(--text-dim); margin:12px 0; line-height:1.7; font-size:14px;">
+                                Leveraging Artificial Intelligence to create custom AI chatbots. Integrating AI into virtual reality worlds.
+                            </p>
+                            <a href="https://realityworlds.com" target="_blank" rel="noopener" class="project-link">realityworlds.com →</a><br>
+                            <a href="https://iamcharliex.com/blog/ai-blog-generator-guide" target="_blank" rel="noopener" class="project-link">AI API Guide →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <aside>
+                    <div class="card">
+                        <h2>Technical Skills</h2>
+                        <div class="skills">
+                            <span class="skill">Technical SEO</span>
+                            <span class="skill">Google Search Console</span>
+                            <span class="skill">Backlink Strategy</span>
+                            <span class="skill">Cloud Operations</span>
+                            <span class="skill">DNS & SSL</span>
+                            <span class="skill">CI/CD Pipelines</span>
+                            <span class="skill">WordPress</span>
+                            <span class="skill">Webflow</span>
+                            <span class="skill">Shopify</span>
+                            <span class="skill">Next.js</span>
+                            <span class="skill">Python</span>
+                            <span class="skill">TypeScript</span>
+                            <span class="skill">PHP</span>
+                            <span class="skill">Git / GitHub</span>
+                            <span class="skill">Linux</span>
+                            <span class="skill">Railway</span>
+                            <span class="skill">Cloudways</span>
+                            <span class="skill">Bitcoin Protocol</span>
+                            <span class="skill">Lightning Network</span>
+                            <span class="skill">BTCPay Server</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Platform Expertise</h2>
+                        <ul>
+                            <li>Google Search Console, Analytics, Tag Manager</li>
+                            <li>Railway, Cloudways, Cloudinary, Vercel</li>
+                            <li>WordPress, Webflow, Shopify ecosystems</li>
+                            <li>Bitcoin Core, Lightning, BTCPay Server</li>
+                            <li>Git/GitHub, CI/CD automation</li>
+                            <li>Linux, macOS, Windows environments</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h2>Plan ₿</h2>
+                        <ul>
+                            <li>Early adopter (2015) — witnessed Bitcoin's evolution from cypherpunk experiment to trillion-dollar asset</li>
+                            <li>House of Bitcoin founder — trusted voice in education and sovereignty advocacy</li>
+                            <li>Technical and ideological alignment with decentralization principles</li>
+                            <li>Running a full Bitcoin node</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h2>Contact</h2>
+                        <ul style="padding-left:0;">
+                            <li style="padding-left:16px;"><a href="mailto:charlie@houseofbitcoin.org" style="color:var(--text-dim);">charlie@houseofbitcoin.org</a></li>
+                            <li style="padding-left:16px;"><a href="https://houseofbitcoin.com" style="color:var(--text-dim);" target="_blank" rel="noopener">houseofbitcoin.com</a></li>
+                            <li style="padding-left:16px;"><a href="https://iamcharliex.com/" style="color:var(--text-dim);" target="_blank" rel="noopener">iamcharliex.com</a></li>
+                            <li style="padding-left:16px;"><a href="https://www.linkedin.com/in/mxx/" style="color:var(--text-dim);" target="_blank" rel="noopener">linkedin.com/in/mxx</a></li>
+                            <li style="padding-left:16px;"><a href="https://x.com/bitcoindevops/" style="color:var(--text-dim);" target="_blank" rel="noopener">x.com/bitcoindevops</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+
+            <footer>
+                <div style="font-size:14px; font-weight:500; color:var(--text-dim); margin-bottom:8px;">Charlie X</div>
+                <div>DevOps · SEO · ₿</div>
+                <img src="https://res.cloudinary.com/dcqfs6lkg/image/upload/v1757164143/web-app-manifest-512x512_gllmnd.png" alt="Charlie X" class="logo" />
+            </footer>
+        </div>
+    </body>
+</html>
